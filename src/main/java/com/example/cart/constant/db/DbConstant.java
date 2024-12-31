@@ -36,4 +36,16 @@ public class DbConstant {
         public static final String PROFILE_DELETED = "profile_deleted";
     }
 
+    public static class DbProduct extends DbCommon {
+        public static final String TABLE_NAME = "products";
+        public static final String PRODUCT_ID = "product_id";
+        public static final String PRODUCT_NAME = "name";
+        public static final String PRODUCT_DESCRIPTION = "description";
+        public static final String PRODUCT_PRICE = "price";
+        public static final String PRODUCT_QUANTITY = "quantity";
+        public static final String PRODUCT_CATEGORY = "category";
+        public static final String PRODUCT_IMAGE_URL = "image_url";
+        public static final String PRODUCT_DELETED = "product_deleted";
+
+    }
 }
