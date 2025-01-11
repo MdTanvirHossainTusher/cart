@@ -1,5 +1,6 @@
-package com.dailycodework.dreamshops.model;
+package com.example.cart.entity;
 
+import com.example.cart.constant.db.DbConstant.DbCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,13 +13,13 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+@Table(name = DbCategory.TABLE_NAME)
+public class Category extends AuditInfo {
 
+    @Column(name = DbCategory.CATEGORY_NAME)
+    private String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")

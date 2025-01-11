@@ -7,10 +7,9 @@ import lombok.*;
 import java.util.List;
 
 @ToString
-@Data
-//@Setter
-//@Getter
-//@NoArgsConstructor
+@Setter
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(
@@ -25,9 +24,6 @@ public class Role extends AuditInfo {
 
     @Column(name = DbRole.ROLE)
     private String role;
-
-    @Column(name = DbRole.ROLE_DELETED)
-    private boolean deleted = false;
 
     @ManyToMany(
             cascade = {

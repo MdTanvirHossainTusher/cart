@@ -5,8 +5,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @ToString
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(
@@ -32,21 +37,19 @@ public class Product extends AuditInfo {
     private String description;
 
     @Column(name = DbProduct.PRODUCT_PRICE)
-    private double price;
+    private BigDecimal price;
 
     @Column(name = DbProduct.PRODUCT_QUANTITY)
-    private int quantity;
-
-    @Column(name = DbProduct.PRODUCT_CATEGORY)
-    private String category;
+    private int inventory;
 
     @Column(name = DbProduct.PRODUCT_IMAGE_URL)
     private String imageUrl;
 
-    @Column(name = DbProduct.PRODUCT_DELETED)
-    private boolean deleted = false;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    @Lob
-    private byte[] file;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
 
 }

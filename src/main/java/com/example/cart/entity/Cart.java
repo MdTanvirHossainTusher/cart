@@ -1,5 +1,6 @@
-package com.dailycodework.dreamshops.model;
+package com.example.cart.entity;
 
+import com.example.cart.constant.db.DbConstant.DbCart;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +16,10 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = DbCart.TABLE_NAME)
+public class Cart extends AuditInfo {
+
+    @Column(name = DbCart.TOTAL_AMOUNT)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -27,31 +28,5 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public void addItem(CartItem item) {
-        this.items.add(item);
-        item.setCart(this);
-        updateTotalAmount();
-    }
-
-    public void removeItem(CartItem item) {
-        this.items.remove(item);
-        item.setCart(null);
-        updateTotalAmount();
-    }
-
-    private void updateTotalAmount() {
-        this.totalAmount = items.stream().map(item -> {
-            BigDecimal unitPrice = item.getUnitPrice();
-            if (unitPrice == null) {
-                return  BigDecimal.ZERO;
-            }
-            return unitPrice.multiply(BigDecimal.valueOf(item.getQuantity()));
-        }).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-    public void clearCart(){
-        this.items.clear();
-        updateTotalAmount();
-    }
 
 }

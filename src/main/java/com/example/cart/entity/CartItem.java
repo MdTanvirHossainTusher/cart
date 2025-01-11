@@ -1,5 +1,6 @@
-package com.dailycodework.dreamshops.model;
+package com.example.cart.entity;
 
+import com.example.cart.constant.db.DbConstant.DbCartItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,12 +15,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CartItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = DbCartItem.TABLE_NAME)
+public class CartItem extends AuditInfo {
+
+    @Column(name = DbCartItem.QUANTITY, nullable = false)
     private int quantity;
+
+    @Column(name = DbCartItem.UNIT_PRICE, nullable = false)
     private BigDecimal unitPrice;
+
+    @Column(name = DbCartItem.TOTAL_PRICE, nullable = false)
     private BigDecimal totalPrice;
 
     @ManyToOne
@@ -31,10 +36,4 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    public void setTotalPrice() {
-        this.totalPrice = this.unitPrice.multiply(new BigDecimal(quantity));
-
-    }
-
-    
 }

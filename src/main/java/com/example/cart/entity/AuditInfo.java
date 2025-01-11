@@ -1,5 +1,6 @@
 package com.example.cart.entity;
 
+import com.example.cart.constant.db.DbConstant;
 import com.example.cart.constant.db.DbConstant.DbCommon;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,6 +40,9 @@ public abstract class AuditInfo {
     @LastModifiedBy
     @Column(name = DbCommon.LAST_UPDATED_BY, nullable = false)
     private String lastUpdatedBy;
+
+    @Column(name = DbCommon.DELETED, nullable = false)
+    private boolean deleted = false;
 
     @PrePersist
     public void prePersist() {

@@ -7,10 +7,9 @@ import lombok.*;
 import java.util.List;
 
 @ToString
-@Data
-//@Setter
-//@Getter
-//@NoArgsConstructor
+@Setter
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(
@@ -30,9 +29,6 @@ public class User extends AuditInfo {
 
     @Column(name = DbUser.USER_PASSWORD)
     private String password;
-
-    @Column(name = DbUser.USER_DELETED)
-    private boolean deleted = false;
 
     @ManyToMany(
             cascade = {
